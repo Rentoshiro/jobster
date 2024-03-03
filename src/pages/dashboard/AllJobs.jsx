@@ -1,4 +1,4 @@
 function AllJobs() {
-  return <>AllJobs</>;
+  return <div>AllJobs</div>;
 }
 export default AllJobs;
