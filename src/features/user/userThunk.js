@@ -9,6 +9,7 @@ export const registerUserThunk = async (url, user, thunkAPI) => {
     return thunkAPI.rejectWithValue(error.response.data.msg);
   }
 };
+
 export const loginUserThunk = async (url, user, thunkAPI) => {
   try {
     const response = await customFetch.post(url, user);
@@ -17,6 +18,7 @@ export const loginUserThunk = async (url, user, thunkAPI) => {
     return thunkAPI.rejectWithValue(error.response.data.msg);
   }
 };
+
 export const updateUserThunk = async (url, user, thunkAPI) => {
   try {
     const response = await customFetch.patch(url, user, {

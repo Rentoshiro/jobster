@@ -1,8 +1,13 @@
-import { FormRow } from "../../components";
+import { FormRow, FormRowSelect } from "../../components";
 import Wrapper from "../../assets/wrappers/DashboardFormPage";
 import { useSelector, useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { positionHandle } from "../../features/job/jobSlice";
+import {
+  handleChange,
+  clearValues,
+  createJob,
+} from "../../features/job/jobSlice";
+import { useEffect } from "react";
 
 function AddJob() {
   const {
@@ -17,6 +22,9 @@ function AddJob() {
     isEditing,
     editJobId,
   } = useSelector((store) => store.job);
+
+  const { user } = useSelector((store) => store.user);
+
   const dispatch = useDispatch();
 
   function handleSubmit(event) {
@@ -25,13 +33,18 @@ function AddJob() {
       toast.error("Please fill out all fields");
       return;
     }
+    dispatch(createJob({ position, company, jobLocation, jobType, status }));
   }
 
   function handleJobInput(event) {
     const name = event.target.name;
     const value = event.target.value;
-    dispatch(positionHandle({ name, value }));
+    dispatch(handleChange({ name, value }));
   }
+
+  useEffect(() => {
+    dispatch(handleChange({ name: "jobLocation", value: user.location }));
+  }, []);
 
   return (
     <Wrapper>
@@ -60,8 +73,26 @@ function AddJob() {
             value={jobLocation}
             handleChange={handleJobInput}
           />
+          {/* status */}
+          <FormRowSelect
+            name="status"
+            value={status}
+            handleChange={handleJobInput}
+            list={statusOptions}
+          />
+          <FormRowSelect
+            name="jobType"
+            labelText="job type"
+            value={jobType}
+            handleChange={handleJobInput}
+            list={jobTypeOptions}
+          />
           <div className="btn-container">
-            <button type="button" className="btn btn-block clear-btn">
+            <button
+              type="button"
+              className="btn btn-block clear-btn"
+              onClick={() => dispatch(clearValues())}
+            >
               clear
             </button>
             <button
