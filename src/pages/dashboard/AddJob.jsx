@@ -6,6 +6,7 @@ import {
   handleChange,
   clearValues,
   createJob,
+  editJob,
 } from "../../features/job/jobSlice";
 import { useEffect } from "react";
 
@@ -20,7 +21,7 @@ function AddJob() {
     status,
     statusOptions,
     isEditing,
-    editJobId,
+    setEditJob,
   } = useSelector((store) => store.job);
 
   const { user } = useSelector((store) => store.user);
@@ -33,6 +34,17 @@ function AddJob() {
       toast.error("Please fill out all fields");
       return;
     }
+
+    if (isEditing) {
+      dispatch(
+        editJob({
+          jobId: setEditJob,
+          job: { position, company, jobLocation, jobType, status },
+        })
+      );
+      return;
+    }
+
     dispatch(createJob({ position, company, jobLocation, jobType, status }));
   }
 
@@ -43,13 +55,15 @@ function AddJob() {
   }
 
   useEffect(() => {
-    dispatch(handleChange({ name: "jobLocation", value: user.location }));
+    if (!isEditing) {
+      dispatch(handleChange({ name: "jobLocation", value: user.location }));
+    }
   }, []);
 
   return (
     <Wrapper>
       <form className="form" onSubmit={handleSubmit}>
-        <h3>{isEditing ? "editjob" : "add job"} </h3>
+        <h3>{isEditing ? "edit job" : "add job"} </h3>
         <div className="form-center">
           {/* position */}
           <FormRow
