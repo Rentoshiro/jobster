@@ -10,7 +10,7 @@ function ProtectedRoute({ children }) {
     if (!user) {
       return navigate("/landing");
     }
-  }, []);
+  }, [user]);
   return children;
 }
 
