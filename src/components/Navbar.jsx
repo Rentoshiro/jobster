@@ -11,7 +11,6 @@ function Navbar() {
   const { user } = useSelector((store) => store.user);
   const [showLogout, setShowLogout] = useState(false);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   function toggle() {
     dispatch(toggleSidebar());

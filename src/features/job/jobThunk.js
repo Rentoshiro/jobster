@@ -1,7 +1,6 @@
 import customFetch, { checkForUnauthorizedResponse } from "../../utils/axios";
-import { showLoading, hideLoading, getAllJobs } from "../allJobs/allJobsSlice";
+import { showLoading, getAllJobs } from "../allJobs/allJobsSlice";
 import { clearValues } from "./jobSlice";
-import { logoutUser } from "../user/userSlice";
 
 const authHeader = (thunkAPI) => {
   return {
