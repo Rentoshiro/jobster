@@ -5,7 +5,6 @@ import { useState } from "react";
 
 import { useDispatch, useSelector } from "react-redux";
 import { clearStore, toggleSidebar } from "../features/user/userSlice";
-import { useNavigate } from "react-router-dom";
 
 function Navbar() {
   const { user } = useSelector((store) => store.user);

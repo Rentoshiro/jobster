@@ -36,7 +36,10 @@ function SearchContainer() {
     };
   };
 
-  const optimizedDebounce = useMemo(() => debounce(), [debounce]);
+  const optimizedDebounce = useMemo(() => {
+    const debounceFunction = debounce();
+    return debounceFunction;
+  }, []);
 
   return (
     <Wrapper>
