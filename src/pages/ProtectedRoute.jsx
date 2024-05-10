@@ -5,9 +5,12 @@ import { useEffect } from "react";
 function ProtectedRoute({ children }) {
   const navigate = useNavigate();
   const { user } = useSelector((store) => store.user);
-  if (!user) {
-    navigate("/landing");
-  }
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/landing");
+    }
+  }, [user, navigate]);
   return children;
 }
 
