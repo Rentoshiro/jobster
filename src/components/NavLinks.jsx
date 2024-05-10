@@ -2,6 +2,13 @@ import { NavLink } from "react-router-dom";
 import links from "../utils/links";
 
 function NavLinks({ toggleSidebar }) {
+  function toggle() {
+    if (toggleSidebar) {
+      return toggleSidebar();
+    } else {
+      return null;
+    }
+  }
   return (
     <div className="nav-links">
       {links.map((link) => {
@@ -13,7 +20,7 @@ function NavLinks({ toggleSidebar }) {
               return isActive ? "nav-link active" : "nav-link";
             }}
             key={id}
-            onClick={() => toggleSidebar()}
+            onClick={() => toggle()}
           >
             <span className="icon">{icon}</span>
             {text}
